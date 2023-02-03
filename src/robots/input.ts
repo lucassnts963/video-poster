@@ -1,5 +1,7 @@
 import readline from "readline-sync";
 
+import * as state from "./state";
+
 type IType = "YouTube" | "TikTok";
 
 export interface IUrl {
@@ -14,12 +16,22 @@ export interface Content {
 type MenuOption = "Add new URL";
 
 export function robot() {
-  const content = {
-    urls: [],
-  } as Content;
+  const exists = state.exists();
+
+  let content = {} as Content;
+
+  if (exists) {
+    content = state.load();
+  } else {
+    content = {
+      urls: [],
+    } as Content;
+  }
 
   const url = askAndReturnOneUrl();
   content.urls.push(url);
+
+  state.save(content);
 
   const option = askAndReturnOneOption();
 
@@ -46,7 +58,7 @@ export function robot() {
   }
 
   function askAndReturnOneOption(): MenuOption {
-    const options = ["Add new URL", "Exit"] as MenuOption[];
+    const options = ["Add new URL"] as MenuOption[];
 
     const optionSelectedIndex = readline.keyInSelect(
       options,
