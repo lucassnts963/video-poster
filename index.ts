@@ -1,1 +1,7 @@
-console.log("Hello world!");
+import { robots } from "./src/robots";
+
+async function start() {
+  robots.input();
+}
+
+start();
