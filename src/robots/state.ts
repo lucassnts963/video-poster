@@ -10,11 +10,11 @@ function save(content: Content) {
   return fs.writeFileSync(contentFilePath, contentString);
 }
 
-function load() {
+function load(): Content {
   const fileBuffer = fs.readFileSync(contentFilePath, "utf-8");
   const contentJson = JSON.parse(fileBuffer);
 
-  return contentJson;
+  return contentJson as Content;
 }
 
 function exists(): boolean {
