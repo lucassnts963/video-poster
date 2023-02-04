@@ -11,6 +11,7 @@ export interface IUrl {
 
 export interface Content {
   urls: IUrl[];
+  urlsDownloaded: string[];
 }
 
 type MenuOption = "Add new URL";
@@ -25,6 +26,7 @@ export function robot() {
   } else {
     content = {
       urls: [],
+      urlsDownloaded: [],
     } as Content;
   }
 
